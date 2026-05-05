@@ -1,3 +1,4 @@
+
 # titulo="Clima actual" #tipo string
 # temp=18.6 #float
 # diaDelMes=16 #int
