@@ -41,26 +41,74 @@
 #                 print("Gracias por usar")
 #                 break                    
 def mostrar():
-    print("el nombre del producto es:",productos[1]["precio"])
-    print("el nombre del producto es:",productos[2]["precio"])
-    print("el nombre del producto es:",productos[3]["precio"])
+    for d,p in productos.items():
+        print(f"{d}: nombre:{p["nombre"]}  precio:{p["precio"]}")
     print("="*20)
+def agregar():
+    nombre=input("Que producto quiere agregar?: ")
+    precio=int(input("cual es el precio del producto?: "))
+    if productos:
+        datonuevo = max(productos.keys()) + 1
+    else:
+        datonuevo = 1
+    productos[datonuevo] = {"nombre": nombre, "precio": precio}
+    print("se agrego un nuevo producto")
+    print("="*20)
+def borrar():
+    try:
+        mostrar()
+        eliminar=int(input("que producto quiere borrar: "))
+        del productos[eliminar]
+        print("producto borrado")
+    except ValueError:
+        print("eliga una opcion numerica")
+def actualizar():
+    if not productos:
+        print("No hay productos para actualizar")
+        return
+    mostrar()
+    try:
+        actualizar = int(input("¿Qué producto quiere actualizar?: "))
+
+        if actualizar in productos:
+            print(f"Actualizando: {productos[actualizar]['nombre']}")
+            nuevonombre = input("Nuevo nombre (Enter para no cambiar): ")
+            if nuevonombre:
+                productos[actualizar]["nombre"] = nuevonombre
+            nuevoprecio = input("Nuevo precio (Enter para no cambiar): ")
+            if nuevoprecio:
+                productos[actualizar]["precio"] = int(nuevoprecio)
+            print("Producto actualizado")
+        else:
+            print("Ese producto no existe")
+    except ValueError:
+        print("Por favor, ingrese un número válido")
 productos={
     1:{"nombre":"leche", "precio":1200},
     2:{"nombre":"mani", "precio":1600},
     3:{"nombre":"cereal", "precio":3200}
 }
-
 while True:
     print("""
-1.Agregar juego
-2.Borrar juego
-3.Actualizar juego
-4.Mostrar juegos
+1.Agregar producto
+2.Borrar producto
+3.Actualizar producto
+4.Mostrar producto
 5.Salir
 """)
     print("="*20)
     op=int(input("seleccione una opcion: "))
     match op:
         case 1:
+            agregar()
+        case 2:
+            borrar()
+        case 3:
+            actualizar()
+        case 4:
             mostrar()
+        case 5:
+            print("Hasta pronto")
+            break  
+        case _:
+            print("ingrese unaa opcion valida del 1 al 5")
