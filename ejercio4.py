@@ -74,6 +74,17 @@
 #             break  
 #         case _:
 #             print("ingrese unaa opcion valida del 1 al 5")
+def tomartemperatura():
+    mostrar()
+    sel=int(input("que pacinte quiere tomar la temperatura"))
+    reg=float(input("Ingrese la temperatura"))
+    pacientes[sel-1]["temperatura"]=reg
+    pacientes[sel-1]["garve"]=validadestado(reg)
+def validadestado(t):
+    if t>39:
+        return True
+    else:
+        return False
 def mostrar():
     if len(pacientes)== 0:
         print("no hay pacientes")
@@ -100,16 +111,31 @@ def agregar():
                 prevision=input("Ingrese la prevision del paciente?: ")
                 temperatura=float(input("Ingrese la temperatura del paciente?: "))
                 pacientes.append({"nombre": nombre,  "prevision": prevision,
-                "temperatura": temperatura, "grave": False})
+                "temperatura": temperatura, "grave": validadestado(temperatura)})
         except ValueError:
             print("se agrego un paciente") 
             print("="*20) 
-def actualizar():
-    print("i")       
+def cobraratencion(): 
+    while True:
+        try:
+            mostrar()
+            total=0
+            sel=int(input("que pacinte va a pagar: "))
+            print("fonasa / isapre / fodesa")
+            prev=pacientes[sel-1]["prevision"]
+            if prev.lower=="fonasa":
+                total=25000*0.46
+            elif prev.lower=="isapre":
+                total=25000*0.47
+            elif prev.lower=="fodesa":
+                total=25000*0.875
+        except ValueError:
+            print("esbrica uan de las opciones validas")
+        print("="*20)
 pacientes=[
     {"nombre": " Aquiles Baeza",  "prevision": "fonasa",
      "temperatura": 34.6, "grave": True}, 
-    {"nombre": " dON rAMON Baeza",  "prevision": "fonasa",
+    {"nombre": " dON rAMON Baeza",  "prevision": "fodesa",
     "temperatura": 34.6, "grave": False},
     {"nombre": " Señor Barriga",  "prevision": "fonasa",
     "temperatura": 34.6, "grave": False}
@@ -121,7 +147,8 @@ while True:
 2.Quitar paciete
 3.Tomar Temparatura
 4.Mostrar pacientes
-5.Salir
+5.cobro          
+6.Salir
 """)
     print("="*20)
     op=int(input("seleccione una opcion: "))
@@ -131,10 +158,12 @@ while True:
         case 2:
             borrar()
         case 3:
-            actualizar()
+            tomartemperatura()
         case 4:
             mostrar()
         case 5:
+            cobraratencion()
+        case 6:
             print("Hasta pronto")
             break  
         case _:
