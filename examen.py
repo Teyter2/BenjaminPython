@@ -12,7 +12,7 @@ operaciones = {
     "A001":["01-01-2024","12-12-2015"],
     "A002":["07-08-2024","01-08-2025"],
     "A003":["09-01-2025","Pendiente"],
-    "A004":["24-03-2025","Pendinete"],
+    "A004":["24-03-2025","Pendiente"],
     "A005":["24-03-2024","24-07-2024"],
     "A006":["24-03-2024","24-09-2024"],
 }
@@ -26,6 +26,30 @@ def autos_vendidos_por_marca(marca):
             if operaciones[id_auto][1] != "Pendinte":
                 total+=1
 
-    print(total)
+    print("el numero todal de auntos vendidos de",marca.upper(),"es",total)
 
-autos_vendidos_por_marca()
+def busqueda_por_año(año_min, año_max):
+    elementos=[]
+
+    for id_auto, datos in autos.items():
+        marca = datos[0]
+        modelo = datos[1]
+        año = datos[2]
+
+        if año_min <= año <= año_max:
+            if operaciones[id_auto][1] == "Pendiente":
+
+                elementos.append(f"{marca} {modelo} -- {id_auto}")
+
+    if elementos.sort():
+        print(elementos)
+    else:
+        print("No se ha encontados elementos :C ")
+                
+        
+
+
+#test
+busqueda_por_año(2010,2026)
+# autos_vendidos_por_marca("Ford")
+# print(marca, modelo ,".-", año,"--",id_auto)
