@@ -50,6 +50,15 @@ def busqueda_por_año(año_min, año_max):
 
 
 #test
+while True:
+    try:
+        año_inicio = int(input("Ingrese el año de inicio de la : "))
+        año_termino = int(input("Ingrese el año de termino de la busqueda: "))
+        busqueda_por_año(año_inicio, año_termino)
+        break
+    except:
+        print("los años deben ser números enteros")
+    
 busqueda_por_año(2010,2026)
 # autos_vendidos_por_marca("Ford")
 # print(marca, modelo ,".-", año,"--",id_auto)
